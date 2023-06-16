@@ -1,18 +1,83 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#3772E7"
+    android:orientation="vertical"
+    >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_gravity="start"
+        android:text="@string/playlistMaker"
+        android:textColor="@color/white_title"
+        android:textSize="@dimen/text_size_firstPage" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/right_left"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="@dimen/right_left"
+        android:layout_marginBottom="28dp"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/search"
+            android:textSize="@dimen/text_size_firstPage"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FFFFFF"
+            android:text="@string/search"
+            android:textColor="@color/black_firstpage"
+            app:cornerRadius="@dimen/radius"
+            app:icon="@drawable/search"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/icon_pad"
+            app:iconTint="@color/black_firstpage"/>
+
+        <Button
+            android:id="@+id/mediateca"
+            android:textSize="@dimen/text_size_firstPage"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/right_left"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:text="@string/mediateca"
+            app:cornerRadius="@dimen/radius"
+            app:icon="@drawable/media"
+            app:iconGravity="textStart"
+            app:iconPadding="@dimen/icon_pad"
+            app:iconTint="@color/black_firstpage"
+            android:textColor="@color/black_firstpage"
+            />
+
+
+        <Button
+            android:id="@+id/setings"
+            app:iconPadding="@dimen/icon_pad"
+            android:layout_marginTop="@dimen/right_left"
+            android:textSize="@dimen/text_size_firstPage"
+            android:textAllCaps="false"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/black_firstpage"
+            android:text="@string/setings"
+            app:cornerRadius="@dimen/radius"
+            app:icon="@drawable/setings"
+            app:iconGravity="textStart"
+            app:iconTint="@color/black_firstpage"
+            />
+
+    </LinearLayout>
+
+
+</LinearLayout>
