@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="medium_padding">8dp</dimen>
+    <dimen name="primary_text_size">24sp</dimen>
+    <dimen name="text_size_firstPage">22sp</dimen>
+    <dimen name="radius">10dp</dimen>
+    <dimen name="right_left">16dp</dimen>
+    <dimen name="icon_pad">10dp</dimen>
+    <dimen name="text_secondPage">16sp</dimen>
+    <dimen name="top_margin">41dp</dimen>
+    <dimen name="end_margin">21dp</dimen>
+    <dimen name="firstVector_margin">20dp</dimen>
+</resources>
