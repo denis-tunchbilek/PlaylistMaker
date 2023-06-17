@@ -14,8 +14,8 @@
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/firstVector_margin"
-            android:layout_marginTop="@dimen/firstVector_margin"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
             android:backgroundTint="@color/white"
             android:src="@drawable/row" />
 
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
-            android:layout_marginTop="@dimen/firstVector_margin"
+            android:layout_marginTop="20dp"
             android:text="@string/setings"
             android:textColor="@color/black_firstpage"
             android:textSize="22sp" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginStart="@dimen/right_left"
+            android:layout_marginStart="16dp"
             android:text="@string/black_theme"
             android:textColor="@color/black_secondPage"
             android:textSize="@dimen/text_secondPage" />
@@ -62,32 +62,32 @@
             android:text="@string/share"
             android:textColor="@color/black_secondPage"
             android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="@dimen/right_left"/>
+            android:layout_marginStart="16dp"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/share"
             android:layout_gravity="end"
             android:backgroundTint="@color/white"
-            android:layout_marginEnd="@dimen/end_margin"/>
+            android:layout_marginEnd="21dp"/>
     </FrameLayout>
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_margin">
+        android:layout_marginTop="42dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/help"
             android:textColor="@color/black_secondPage"
             android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="@dimen/right_left"/>
+            android:layout_marginStart="16dp"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/girl"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/end_margin"
+            android:layout_marginEnd="21dp"
             android:backgroundTint="@color/white"/>
 
 
@@ -95,20 +95,20 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/top_margin">
+        android:layout_marginTop="42dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/rules"
             android:textColor="@color/black_secondPage"
             android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="@dimen/right_left"/>
+            android:layout_marginStart="16dp"/>
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/row_right"
             android:layout_gravity="end"
-            android:layout_marginEnd="@dimen/end_margin"
+            android:layout_marginEnd="21dp"
             android:backgroundTint="@color/white"/>
 
 
