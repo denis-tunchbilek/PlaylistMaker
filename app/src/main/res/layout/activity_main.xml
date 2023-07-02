@@ -2,15 +2,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical"
-    >
+    android:background="?attr/colorPrimary"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
         android:text="@string/playlistMaker"
+        android:fontFamily="@font/ys_text_medium"
         android:textColor="@color/white_title"
         android:textSize="@dimen/text_size_firstPage" />
 
@@ -23,58 +23,23 @@
         android:orientation="vertical">
 
 
-        <Button
+        <Button style="@style/buttonStyle"
             android:id="@+id/search"
-            android:textSize="@dimen/text_size_firstPage"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/backgroundInit"
             android:text="@string/search"
-            android:textColor="@color/black_firstpage"
-            app:cornerRadius="@dimen/radius"
-            app:icon="@drawable/search"
-            app:iconGravity="textStart"
-            app:iconPadding="10dp"
-            app:iconTint="@color/black_firstpage"/>
+            app:icon="@drawable/search" />
 
-        <Button
+        <Button style="@style/buttonStyle"
             android:id="@+id/mediateca"
-            android:textSize="@dimen/text_size_firstPage"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             android:layout_marginTop="16dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
             android:text="@string/mediateca"
-            app:cornerRadius="@dimen/radius"
-            app:icon="@drawable/media"
-            app:iconGravity="textStart"
-            app:iconPadding="10dp"
-            app:iconTint="@color/black_firstpage"
-            android:textColor="@color/black_firstpage"
-            />
+            app:icon="@drawable/media"/>
 
 
-        <Button
+        <Button style="@style/buttonStyle"
             android:id="@+id/setings"
-            app:iconPadding="10dp"
             android:layout_marginTop="16dp"
-            android:textSize="@dimen/text_size_firstPage"
-            android:textAllCaps="false"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/black_firstpage"
             android:text="@string/setings"
-            app:cornerRadius="@dimen/radius"
-            app:icon="@drawable/setings"
-            app:iconGravity="textStart"
-            app:iconTint="@color/black_firstpage"
-            />
+            app:icon="@drawable/setings"/>
 
     </LinearLayout>
 

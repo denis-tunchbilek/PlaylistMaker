@@ -16,16 +16,18 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/row" />
+            android:backgroundTint="?attr/colorSecondary"
+            android:src="@drawable/row"
+            app:tint="?attr/colorOnPrimary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginTop="20dp"
+            android:fontFamily="@font/ys_text_medium"
             android:text="@string/setings"
-            android:textColor="@color/black_firstpage"
+            android:textColor="?attr/colorOnPrimary"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -36,13 +38,9 @@
         android:layout_marginTop="61dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:layout_marginStart="16dp"
-            android:text="@string/black_theme"
-            android:textColor="@color/black_secondPage"
-            android:textSize="@dimen/text_secondPage" />
+            style="@style/textSeting"
+            android:text="@string/black_theme" />
+
 
         <Switch
             android:layout_width="wrap_content"
@@ -52,64 +50,50 @@
 
 
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/share"
-            android:textColor="@color/black_secondPage"
-            android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="16dp"/>
+            style="@style/textSeting"
+            android:text="@string/share" />
+
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/share"
-            android:layout_gravity="end"
-            android:backgroundTint="@color/white"
-            android:layout_marginEnd="21dp"/>
+            android:id="@+id/s"
+            style="@style/buttonSetings"
+            android:src="@drawable/share" />
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/help"
-            android:textColor="@color/black_secondPage"
-            android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="16dp"/>
+            style="@style/textSeting"
+            android:text="@string/help" />
+
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/girl"
-            android:layout_gravity="end"
-            android:layout_marginEnd="21dp"
-            android:backgroundTint="@color/white"/>
+            style="@style/buttonSetings"
+            android:src="@drawable/girl" />
 
 
     </FrameLayout>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="42dp">
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rules"
-            android:textColor="@color/black_secondPage"
-            android:textSize="@dimen/text_secondPage"
-            android:layout_marginStart="16dp"/>
+            style="@style/textSeting"
+            android:text="@string/rules" />
+
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/row_right"
-            android:layout_gravity="end"
-            android:layout_marginEnd="21dp"
-            android:backgroundTint="@color/white"/>
+            style="@style/buttonSetings"
+            android:src="@drawable/row_right" />
 
 
     </FrameLayout>
