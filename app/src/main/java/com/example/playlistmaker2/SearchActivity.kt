@@ -1,8 +1,7 @@
-package com.example.testapp
+package com.example.playlistmaker2
 
 import android.annotation.SuppressLint
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,9 +10,13 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import com.example.playlistmaker2.R
+import androidx.appcompat.app.AppCompatActivity
+
 
 class SearchActivity : AppCompatActivity() {
+    private val inputEditText: EditText? = null
+
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +24,12 @@ class SearchActivity : AppCompatActivity() {
         val inputEditText = findViewById<EditText>(R.id.inputEditText)
         val clearButton = findViewById<ImageView>(R.id.clearIcon)
         val buttonBack = findViewById<ImageButton>(R.id.back)
+
+        if (savedInstanceState != null) {
+            val searchText = savedInstanceState.getString("text")
+            inputEditText.setText(searchText)
+        }
+
 
         buttonBack.setOnClickListener {
             finish()
@@ -56,4 +65,17 @@ class SearchActivity : AppCompatActivity() {
             View.VISIBLE
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val searchText = inputEditText?.text.toString()
+        outState.putString("text", searchText)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val searchText = savedInstanceState.getString("text")
+        inputEditText?.setText(searchText)
+    }
+
 }

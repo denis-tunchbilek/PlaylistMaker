@@ -16,7 +16,7 @@
             android:name="com.example.testapp.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.example.testapp.SearchActivity"
+            android:name=".SearchActivity"
             android:exported="false" />
         <activity
             android:name="com.example.testapp.MediatecaActivity"
