@@ -4,7 +4,9 @@
         <item name="colorPrimary">@color/black_firstpage</item>
         <item name="colorOnPrimary">@color/backgroundInit</item>
         <item name="colorPrimaryVariant">@color/backgroundInit</item>
-        <item name="colorSecondary">@color/black_firstpage</item><!-- Customize your dark theme here. -->
+        <item name="colorSecondary">@color/black_firstpage</item>
+        <item name="colorOnSecondary">@color/backgroundInit</item>
+        <item name="colorSecondaryVariant">@color/black_firstpage</item><!-- Customize your dark theme here. -->
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 </resources>

@@ -43,6 +43,7 @@
 
 
         <Switch
+            android:id="@+id/theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -76,6 +77,7 @@
             android:text="@string/help" />
 
         <ImageButton
+            android:id="@+id/mail"
             style="@style/buttonSetings"
             android:src="@drawable/girl" />
 
@@ -92,6 +94,7 @@
             android:text="@string/rules" />
 
         <ImageButton
+            android:id="@+id/rules"
             style="@style/buttonSetings"
             android:src="@drawable/row_right" />
 
