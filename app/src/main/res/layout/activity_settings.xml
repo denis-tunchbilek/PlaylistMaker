@@ -38,6 +38,8 @@
         android:layout_marginTop="61dp">
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/textSeting"
             android:text="@string/black_theme" />
 
@@ -55,13 +57,17 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp">
+        android:layout_marginTop="@dimen/margin_top">
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/textSeting"
             android:text="@string/share" />
 
         <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/s"
             style="@style/buttonSetings"
             android:src="@drawable/share" />
@@ -70,13 +76,17 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp">
+        android:layout_marginTop="@dimen/margin_top">
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/textSeting"
             android:text="@string/help" />
 
         <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/mail"
             style="@style/buttonSetings"
             android:src="@drawable/girl" />
@@ -87,13 +97,17 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp">
+        android:layout_marginTop="@dimen/margin_top">
 
         <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             style="@style/textSeting"
             android:text="@string/rules" />
 
         <ImageButton
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
             android:id="@+id/rules"
             style="@style/buttonSetings"
             android:src="@drawable/row_right" />

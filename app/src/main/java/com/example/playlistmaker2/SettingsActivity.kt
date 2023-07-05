@@ -27,29 +27,33 @@ class SettingsActivity : AppCompatActivity() {
             finish()
         }
         buttonShare.setOnClickListener {
-            val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.type = "plain/text"
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "https://practicum.yandex.ru/android-developer/")
-            startActivity(Intent.createChooser(shareIntent, "Поделиться"))
+            Intent(Intent.ACTION_SEND).apply {
+                type="plain/text"
+                putExtra(Intent.EXTRA_TEXT, getString(R.string.practicumLink))
+                startActivity(this)
+            }
         }
         buttonSend.setOnClickListener {
-            val mailIntent = Intent(Intent.ACTION_SEND)
-            mailIntent.data = Uri.parse("mailto:")
-            mailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf("denistuncbilek92718@gmail.com"))
-            mailIntent.putExtra(
-                Intent.EXTRA_SUBJECT,
-                "Сообщение разработчикам и разработчицам приложения Playlist Maker"
-            )
-            mailIntent.putExtra(
-                Intent.EXTRA_TEXT,
-                "Спасибо разработчикам и разработчицам за крутое приложение!"
-            )
-            startActivity(mailIntent)
+            Intent(Intent.ACTION_SEND).apply {
+                data = Uri.parse("mailto:")
+                putExtra(Intent.EXTRA_EMAIL, arrayOf("denistuncbilek92718@gmail.com"))
+                putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    "Сообщение разработчикам и разработчицам приложения Playlist Maker"
+                )
+                putExtra(
+                    Intent.EXTRA_TEXT,
+                    "Спасибо разработчикам и разработчицам за крутое приложение!"
+                )
+                startActivity(this)
+            }
         }
         buttonRules.setOnClickListener {
-            val rulesIntent = Intent(Intent.ACTION_VIEW)
-            rulesIntent.data = Uri.parse("https://yandex.ru/legal/practicum_offer/")
-            startActivity(rulesIntent)
+            Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(getString(R.string.practicumOffer))
+                startActivity(this)
+            }
+
         }
 
     }

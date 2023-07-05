@@ -5,4 +5,6 @@
     <dimen name="text_size_firstPage">22sp</dimen>
     <dimen name="radius">10dp</dimen>
     <dimen name="text_secondPage">16sp</dimen>
+    <dimen name="horizontal_margin">16dp</dimen>
+    <dimen name="margin_top">42dp</dimen>
 </resources>
