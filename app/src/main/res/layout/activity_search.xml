@@ -54,7 +54,7 @@
             android:layout_marginEnd="264dp"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="?attr/colorSecondaryVariant"
+            android:textColor="@color/vector_color"
             android:textColorHint="?attr/colorSecondaryVariant"
             android:textSize="@dimen/text_secondPage" />
 

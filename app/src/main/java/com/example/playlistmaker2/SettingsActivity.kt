@@ -36,14 +36,14 @@ class SettingsActivity : AppCompatActivity() {
         buttonSend.setOnClickListener {
             Intent(Intent.ACTION_SEND).apply {
                 data = Uri.parse("mailto:")
-                putExtra(Intent.EXTRA_EMAIL, arrayOf("denistuncbilek92718@gmail.com"))
+                putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.gmail)))
                 putExtra(
                     Intent.EXTRA_SUBJECT,
-                    "Сообщение разработчикам и разработчицам приложения Playlist Maker"
+                    getString(R.string.mail_subject)
                 )
                 putExtra(
                     Intent.EXTRA_TEXT,
-                    "Спасибо разработчикам и разработчицам за крутое приложение!"
+                    getString(R.string.mail_text)
                 )
                 startActivity(this)
             }
