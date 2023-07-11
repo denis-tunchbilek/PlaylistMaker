@@ -46,11 +46,13 @@
             android:id="@+id/inputEditText"
             android:focusedByDefault="true"
             android:layout_width="328dp"
+            android:textCursorDrawable="@drawable/cursor"
             android:layout_height="36dp"
             android:layout_marginStart="36dp"
             android:background="?attr/colorOnSecondary"
             android:focusable="true"
             android:hint="@string/search"
+
             android:layout_marginEnd="264dp"
             android:inputType="text"
             android:maxLines="1"
@@ -73,9 +75,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:visibility="gone" />
+            android:src="@drawable/clear"
+            android:layout_marginHorizontal="1dp"
+            android:visibility="gone"
+            app:tint="?attr/colorSecondaryVariant" />
 
     </FrameLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/trackList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        />
 
 </LinearLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/trackCard"
+    android:layout_width="match_parent"
+    android:layout_height="61dp"
+    android:gravity="center_vertical|start"
+    android:orientation="horizontal">
+    <ImageView
+        android:id="@+id/songPicture"
+        android:layout_width="@dimen/songImageSize"
+        android:layout_height="@dimen/songImageSize"
+        android:layout_marginStart="13dp"
+        android:src="@drawable/place_holder"
+        app:cornerRadius="2dp"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical|start"
+        android:orientation="vertical"
+        android:layout_marginStart="8dp">
+        <TextView
+            android:id="@+id/songName"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:maxLines="1"
+            android:textColor="?attr/colorPrimaryDark"
+            android:fontFamily="@font/ys_text_regular"
+            tools:text="Here Comes The Sun (Remastered..."/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|start"
+            android:layout_marginTop="@dimen/medium_padding"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/artistName"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:fontFamily="@font/ys_text_regular"
+                android:textSize="11sp"
+                android:textColor="?attr/colorPrimaryVariant"
+                tools:text="Artist Name"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic"
+                android:gravity="center_vertical|start"
+                app:tint="?attr/colorPrimaryVariant" />
+            <TextView
+                android:id="@+id/songTime"
+                android:layout_height="match_parent"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:fontFamily="@font/ys_text_regular"
+                android:textSize="11sp"
+                android:textColor="?attr/colorPrimaryVariant"
+                tools:text="2:55"/>
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/trackArrowForward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="12dp"
+        android:src="@drawable/row_right"
+        app:tint="?attr/colorPrimaryVariant" />
+
+</LinearLayout>
