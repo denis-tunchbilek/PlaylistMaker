@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/colorSecondary"
+    android:backgroundTint="@color/white_secondPage"
     android:orientation="vertical">
 
     <LinearLayout
@@ -16,18 +16,16 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
-            android:backgroundTint="?attr/colorSecondary"
-            android:src="@drawable/row"
-            app:tint="?attr/colorOnPrimary" />
+            android:backgroundTint="@color/white"
+            android:src="@drawable/row" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="64dp"
             android:layout_marginTop="20dp"
-            android:fontFamily="@font/ys_text_medium"
             android:text="@string/setings"
-            android:textColor="?attr/colorOnPrimary"
+            android:textColor="@color/black_firstpage"
             android:textSize="22sp" />
 
     </LinearLayout>
@@ -38,14 +36,15 @@
         android:layout_marginTop="61dp">
 
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/textSeting"
-            android:text="@string/black_theme" />
-
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginStart="16dp"
+            android:text="@string/black_theme"
+            android:textColor="@color/black_secondPage"
+            android:textSize="@dimen/text_secondPage" />
 
         <Switch
-            android:id="@+id/theme"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
@@ -53,64 +52,64 @@
 
 
     </FrameLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top">
-
+        android:layout_marginTop="42dp">
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/textSeting"
-            android:text="@string/share" />
-
+            android:layout_height="wrap_content"
+            android:text="@string/share"
+            android:textColor="@color/black_secondPage"
+            android:textSize="@dimen/text_secondPage"
+            android:layout_marginStart="16dp"/>
         <ImageButton
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/s"
-            style="@style/buttonSetings"
-            android:src="@drawable/share" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/share"
+            android:layout_gravity="end"
+            android:backgroundTint="@color/white"
+            android:layout_marginEnd="21dp"/>
     </FrameLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top">
-
+        android:layout_marginTop="42dp">
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/textSeting"
-            android:text="@string/help" />
-
+            android:layout_height="wrap_content"
+            android:text="@string/help"
+            android:textColor="@color/black_secondPage"
+            android:textSize="@dimen/text_secondPage"
+            android:layout_marginStart="16dp"/>
         <ImageButton
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/mail"
-            style="@style/buttonSetings"
-            android:src="@drawable/girl" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/girl"
+            android:layout_gravity="end"
+            android:layout_marginEnd="21dp"
+            android:backgroundTint="@color/white"/>
 
 
     </FrameLayout>
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_top">
-
+        android:layout_marginTop="42dp">
         <TextView
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            style="@style/textSeting"
-            android:text="@string/rules" />
-
+            android:layout_height="wrap_content"
+            android:text="@string/rules"
+            android:textColor="@color/black_secondPage"
+            android:textSize="@dimen/text_secondPage"
+            android:layout_marginStart="16dp"/>
         <ImageButton
-            android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:id="@+id/rules"
-            style="@style/buttonSetings"
-            android:src="@drawable/row_right" />
+            android:layout_height="wrap_content"
+            android:src="@drawable/row_right"
+            android:layout_gravity="end"
+            android:layout_marginEnd="21dp"
+            android:backgroundTint="@color/white"/>
 
 
     </FrameLayout>
