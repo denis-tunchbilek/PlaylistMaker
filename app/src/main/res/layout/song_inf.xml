@@ -28,9 +28,11 @@
             android:layout_width="wrap_content"
             android:textSize="16sp"
             android:maxLines="1"
+            android:maxWidth="250dp"
             android:textColor="?attr/colorPrimaryDark"
             android:fontFamily="@font/ys_text_regular"
-            tools:text="Here Comes The Sun (Remastered..."/>
+            android:ellipsize="end"
+            tools:text="Here Comes The Sun (Remastered"/>
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -44,6 +46,8 @@
                 android:maxLines="1"
                 android:fontFamily="@font/ys_text_regular"
                 android:textSize="11sp"
+                android:maxWidth="200dp"
+                android:ellipsize="end"
                 android:textColor="?attr/colorPrimaryVariant"
                 tools:text="Artist Name"/>
             <ImageView

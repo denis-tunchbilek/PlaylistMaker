@@ -12,19 +12,15 @@ class SongViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     private val picture: ImageView = itemView.findViewById(R.id.songPicture)
     private val artistName: TextView = itemView.findViewById(R.id.artistName)
     private val songTime: TextView = itemView.findViewById(R.id.songTime)
-    fun bind(item: song) {
-        songName.text =
-            if (item.trackName.length > 30) "${item.trackName.substring(0, 30)}..."
-            else item.trackName
-        artistName.text =
-            if (item.artistName.length > 40) "${item.artistName.substring(0, 40)}..."
-            else item.artistName
+    fun bind(item: Song) {
+        songName.text = item.trackName
+        artistName.text = item.artistName
         songTime.text = item.trackTime
         Glide.with(itemView)
             .load(item.artworkUrl100)
             .placeholder(R.drawable.place_holder)
             .fitCenter()
-            .transform(RoundedCorners(10))
+            .transform(RoundedCorners(itemView.resources.getDimensionPixelSize(R.dimen.pictureSongRadius)))
             .into(picture)
     }
 }
