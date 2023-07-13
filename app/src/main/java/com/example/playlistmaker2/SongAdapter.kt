@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
 class SongAdapter(
-    private val data: List<song>
+    private val data: List<Song>
 ) : RecyclerView.Adapter<SongViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.song_inf, parent, false)
