@@ -15,4 +15,6 @@
     <string name="mail_text">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="practicumOffer">https://yandex.ru/legal/practicum_offer/</string>
     <string name="shareShort">Поделиться</string>
+    <string name="image_not_found">Ничего не нашлось</string>
+    <string name="not_internet">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
 </resources>

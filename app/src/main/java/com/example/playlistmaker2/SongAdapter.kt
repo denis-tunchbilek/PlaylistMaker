@@ -4,19 +4,17 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-class SongAdapter(
-    private val data: List<Song>
-) : RecyclerView.Adapter<SongViewHolder>() {
+class SongAdapter() : RecyclerView.Adapter<SongViewHolder>() {
+    var songs = ArrayList<Song>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.song_inf, parent, false)
-        return SongViewHolder(view)
+        return SongViewHolder(parent)
     }
 
     override fun onBindViewHolder(holder: SongViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(songs[position])
     }
 
     override fun getItemCount(): Int {
-        return data.size
+        return songs.size
     }
 }
