@@ -36,7 +36,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var trackList: RecyclerView
 
 
-    private val iTunesBaseUrl = "https://itunes.apple.com/"
+
 
     private val retrofit = Retrofit.Builder()
         .baseUrl(iTunesBaseUrl)
@@ -52,6 +52,7 @@ class SearchActivity : AppCompatActivity() {
 
     companion object {
         private const val TEXT = "text"
+        private const val iTunesBaseUrl = "https://itunes.apple.com/"
     }
 
 
