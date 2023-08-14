@@ -3,7 +3,6 @@ package com.example.playlistmaker2
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import java.util.Locale
 
-class SongViewHolder(parent: ViewGroup, val itemClickListener: OnTrackClickListener) :
+class SongViewHolder(parent: ViewGroup) :
     RecyclerView.ViewHolder(LayoutInflater.from(parent.context)
     .inflate(R.layout.song_inf, parent, false)) {
     private val songName: TextView = itemView.findViewById(R.id.songName)
@@ -24,9 +23,6 @@ class SongViewHolder(parent: ViewGroup, val itemClickListener: OnTrackClickListe
     fun bind(item: Song) {
         songName.text = item.trackName
         artistName.text = item.artistName
-        itemView.setOnClickListener {
-            itemClickListener.onTrackClick(item)
-        }
         songTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTime.toLong())
         Glide.with(itemView)
             .load(item.artworkUrl100)
