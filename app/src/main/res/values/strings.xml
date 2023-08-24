@@ -17,4 +17,6 @@
     <string name="shareShort">Поделиться</string>
     <string name="image_not_found">Ничего не нашлось</string>
     <string name="not_internet">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="historyTitle">Вы искали</string>
+    <string name="clear_history">Очистить историю</string>
 </resources>

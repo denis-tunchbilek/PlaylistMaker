@@ -1,32 +1,32 @@
 package com.example.playlistmaker2
 
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
-import android.widget.Adapter
+import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 
 
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(){
     private lateinit var inputEditText: EditText
     private lateinit var clearButton: ImageView
     private lateinit var buttonBack: ImageButton
@@ -34,7 +34,11 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var placeHolderText: TextView
     private lateinit var placeHolderButton: ImageButton
     private lateinit var trackList: RecyclerView
-
+    private lateinit var searchHistory: SongHistoryPreference
+    private lateinit var serchHistoryView: LinearLayout
+    private lateinit var searchHistoryRecyclerView: RecyclerView
+    private lateinit var clearHistoryButton: Button
+    private lateinit var erroeView: FrameLayout
 
 
 
@@ -46,13 +50,45 @@ class SearchActivity : AppCompatActivity() {
     private val iTunesService = retrofit.create(iTunesApi::class.java)
 
     private val songs = ArrayList<Song>()
-    private val adapter = SongAdapter()
+    private val searchHistoryTracks = ArrayList<Song>()
+
+    private val adapter = SongAdapter { track ->
+        searchHistoryTracks.clear()
+        searchHistoryTracks.addAll(searchHistory.get())
+        if (searchHistoryTracks.contains(track)) {
+            searchHistoryTracks.remove(track)
+        } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
+            searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+        }
+        searchHistoryTracks.add(0, track)
+        searchHistory.add(searchHistoryTracks)
+
+
+    }
+    private val historyAdapter = SongAdapter{ track ->
+        searchHistoryTracks.clear()
+        searchHistoryTracks.addAll(searchHistory.get())
+        if (searchHistoryTracks.contains(track)) {
+            searchHistoryTracks.remove(track)
+        } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
+            searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+        }
+        searchHistoryTracks.add(0, track)
+        searchHistory.add(searchHistoryTracks)
+
+
+    }
+
+
+
 
 
 
     companion object {
         private const val TEXT = "text"
         private const val iTunesBaseUrl = "https://itunes.apple.com/"
+        private const val PLAYLIST_MAKER_PREFERENCES = "PLAYLIST_MAKER_PREFERENCES"
+        private const val MAX_SIZE_OF_SEARCH_HISTORY_TRACKS = 10
     }
 
 
@@ -62,6 +98,9 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         adapter.songs = songs
+        historyAdapter.songs = searchHistoryTracks
+
+        searchHistory = SongHistoryPreference(getSharedPreferences(PLAYLIST_MAKER_PREFERENCES, MODE_PRIVATE))
 
 
 
@@ -69,18 +108,42 @@ class SearchActivity : AppCompatActivity() {
 
         trackList = findViewById(R.id.trackList)
         trackList.adapter = adapter
+        serchHistoryView = findViewById(R.id.linear_layout_search_history)
+        erroeView = findViewById(R.id.errorView)
+        clearHistoryButton = findViewById(R.id.button_clear_search_history)
+        searchHistoryRecyclerView = findViewById(R.id.recycler_view_search_history)
+        searchHistoryRecyclerView.adapter = historyAdapter
         inputEditText = findViewById(R.id.inputEditText)
         clearButton = findViewById(R.id.clearIcon)
         buttonBack = findViewById(R.id.back)
         placeHolderText = findViewById(R.id.place_holder_text)
         placeHolderImage = findViewById(R.id.place_holder_image)
         placeHolderButton = findViewById(R.id.place_holder_updateButton)
-        inputEditText.requestFocus()
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(inputEditText, InputMethodManager.SHOW_IMPLICIT)
 
 
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
+
+
+        inputEditText.setOnFocusChangeListener { view, hasFocus ->
+            if (hasFocus && inputEditText.text.isEmpty()) showSearchHistory() else serchHistoryView.visibility = View.GONE
+        }
+
+        inputEditText.requestFocus()
+
+
+
+
+
+        inputEditText.doOnTextChanged { text, _, _, _ ->
+            if (inputEditText.hasFocus() && text?.isEmpty() == true) {
+                showSearchHistory()
+            } else {
+                serchHistoryView.visibility = View.GONE
+            }
+        }
+
 
         if (savedInstanceState != null) {
             val searchText = savedInstanceState.getString(TEXT)
@@ -94,7 +157,7 @@ class SearchActivity : AppCompatActivity() {
                 val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.showSoftInput(inputEditText, InputMethodManager.SHOW_IMPLICIT)
                 window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-                // ВЫПОЛНЯЙТЕ ПОИСКОВЫЙ ЗАПРОС ЗДЕСЬ
+
                 true
             }
             false
@@ -104,6 +167,12 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
 
+
+        clearHistoryButton.setOnClickListener{
+            trackList.visibility = View.VISIBLE
+            serchHistoryView.visibility = View.GONE
+            searchHistory.clear()
+        }
 
 
         clearButton.setOnClickListener {
@@ -133,6 +202,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
 
+
+
     private fun getSong(text: String, adapter: SongAdapter){
         iTunesService.search(text).enqueue(object : Callback<iTunesResponse>{
             override fun onResponse(
@@ -146,16 +217,15 @@ class SearchActivity : AppCompatActivity() {
                         adapter.notifyDataSetChanged()
                     }
                     if (songs.isEmpty()){
-                        placeHolderNoFound()
+                        showPlaceHolderNoFound()
 
                     }else{
                         placeHolderButton.visibility = View.GONE
-                        placeHolderImage.visibility = View.GONE
-                        placeHolderText.visibility = View.GONE
+                        erroeView.visibility = View.GONE
                         trackList.visibility = View.VISIBLE
                     }
                 }else{
-                    placeHolderNoInternet()
+                    showPlaceHolderNoInternet()
                     placeHolderButton.setOnClickListener {
                         getSong(text, adapter)
                     }
@@ -163,7 +233,7 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<iTunesResponse>, t: Throwable) {
-                placeHolderNoInternet()
+                showPlaceHolderNoInternet()
                 placeHolderButton.setOnClickListener {
                     getSong(text, adapter)
                 }
@@ -171,23 +241,37 @@ class SearchActivity : AppCompatActivity() {
         })
 
     }
-    private fun placeHolderNoInternet(){
+    private fun showPlaceHolderNoInternet(){
         songs.clear()
         adapter.notifyDataSetChanged()
         trackList.visibility = View.GONE
-        placeHolderImage.visibility = View.VISIBLE
-        placeHolderText.visibility = View.VISIBLE
+        erroeView.visibility =View.VISIBLE
         placeHolderButton.visibility = View.VISIBLE
         placeHolderText.text = getText(R.string.not_internet)
         placeHolderImage.setImageResource(R.drawable.not_internet)
 
     }
 
-    private fun placeHolderNoFound(){
+
+
+
+    private fun showSearchHistory() {
+        erroeView.visibility =View.GONE
+        placeHolderButton.visibility =View.GONE
+        val tracks = searchHistory.get()
+        if (tracks.isNotEmpty()) {
+            trackList.visibility = View.GONE
+            serchHistoryView.visibility = View.VISIBLE
+            searchHistoryTracks.clear()
+            searchHistoryTracks.addAll(tracks)
+            historyAdapter.notifyDataSetChanged()
+        }
+    }
+
+    private fun showPlaceHolderNoFound(){
         songs.clear()
         adapter.notifyDataSetChanged()
-        placeHolderImage.visibility = View.VISIBLE
-        placeHolderText.visibility = View.VISIBLE
+        erroeView.visibility = View.VISIBLE
         placeHolderImage.setImageResource(R.drawable.not_found)
         placeHolderText.text = getText(R.string.image_not_found)
 
@@ -211,5 +295,8 @@ class SearchActivity : AppCompatActivity() {
         val searchText = savedInstanceState.getString(TEXT)
         inputEditText.setText(searchText)
     }
+
+
+
 
 }

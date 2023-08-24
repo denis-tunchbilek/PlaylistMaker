@@ -10,6 +10,9 @@ import android.widget.ImageButton
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
+import com.example.playlistmaker2.APP_SETTINGS_PREF_KEY
+import com.example.playlistmaker2.App
+import com.example.playlistmaker2.DARK_THEME
 import com.example.playlistmaker2.R
 
 class SettingsActivity : AppCompatActivity() {
@@ -20,6 +23,17 @@ class SettingsActivity : AppCompatActivity() {
         val buttonBack = findViewById<ImageButton>(R.id.back)
         val buttonSend = findViewById<ImageButton>(R.id.mail)
         val buttonRules = findViewById<ImageButton>(R.id.rules)
+        val switchTheme = findViewById<Switch>(R.id.theme)
+        val switchPreference = getSharedPreferences(APP_SETTINGS_PREF_KEY, MODE_PRIVATE)
+        switchTheme.isChecked = (applicationContext as App).darkTheme
+
+
+        switchTheme.setOnCheckedChangeListener { switcher, checked ->
+            (applicationContext as App).switchTheme(checked)
+            switchPreference.edit()
+                .putBoolean(DARK_THEME, checked)
+                .apply()
+        }
 
 
 
