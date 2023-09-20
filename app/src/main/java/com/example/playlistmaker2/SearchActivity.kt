@@ -2,6 +2,7 @@ package com.example.playlistmaker2
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,6 +20,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -62,6 +64,9 @@ class SearchActivity : AppCompatActivity(){
         }
         searchHistoryTracks.add(0, track)
         searchHistory.add(searchHistoryTracks)
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        intent.putExtra("track", Gson().toJson(track))
+        startActivity(intent)
 
 
     }
@@ -75,6 +80,9 @@ class SearchActivity : AppCompatActivity(){
         }
         searchHistoryTracks.add(0, track)
         searchHistory.add(searchHistoryTracks)
+        val intent = Intent(this, AudioPlayerActivity::class.java)
+        intent.putExtra("track", Gson().toJson(track))
+        startActivity(intent)
 
 
     }
