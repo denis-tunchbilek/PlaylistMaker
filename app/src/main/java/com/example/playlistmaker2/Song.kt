@@ -9,6 +9,7 @@ data class Song(
     val releaseDate: String,
     val primaryGenreName: String,
     val country: String,
+    val previewUrl: String,
     @SerializedName("trackTimeMillis")val trackTime: String,
     val artworkUrl100: String
 ) {

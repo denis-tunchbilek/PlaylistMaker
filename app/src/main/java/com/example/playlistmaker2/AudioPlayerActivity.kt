@@ -1,8 +1,11 @@
 package com.example.playlistmaker2
 
 import android.icu.text.SimpleDateFormat
+import android.media.MediaPlayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -25,6 +28,65 @@ class AudioPlayerActivity : AppCompatActivity() {
     private lateinit var trackGenre: TextView
     private lateinit var trackCountry: TextView
     private lateinit var albumGroup: Group
+    private lateinit var play: ImageButton
+    private lateinit var playingTime: TextView
+    private var mediaPlayer = MediaPlayer()
+
+
+    companion object {
+        private const val STATE_DEFAULT = 0
+        private const val STATE_PREPARED = 1
+        private const val STATE_PLAYING = 2
+        private const val STATE_PAUSED = 3
+        private const val DELAY_MILLIS = 300L
+    }
+
+    private var playerState = STATE_DEFAULT
+    private val handler = Handler(Looper.getMainLooper())
+    private val timerRunnable = object : Runnable {
+        override fun run() {
+            playingTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(mediaPlayer.currentPosition)
+            handler.postDelayed(this, DELAY_MILLIS)
+        }
+    }
+
+
+    private fun preparePlayer(previewUrl: String) {
+        mediaPlayer.setDataSource(previewUrl)
+        mediaPlayer.prepareAsync()
+        mediaPlayer.setOnPreparedListener {
+            play.isEnabled = true
+            playerState = STATE_PREPARED
+        }
+        mediaPlayer.setOnCompletionListener {
+            play.setImageResource(R.drawable.play_button)
+            playerState = STATE_PREPARED
+        }
+    }
+    private fun startPlayer() {
+        mediaPlayer.start()
+        play.setImageResource(R.drawable.stop_button)
+        playerState = STATE_PLAYING
+        handler.removeCallbacks(timerRunnable)
+        handler.post(timerRunnable)
+    }
+
+    private fun pausePlayer() {
+        mediaPlayer.pause()
+        play.setImageResource(R.drawable.play_button)
+        playerState = STATE_PAUSED
+        handler.removeCallbacks(timerRunnable)
+    }
+    private fun playbackControl() {
+        when(playerState) {
+            STATE_PLAYING -> {
+                pausePlayer()
+            }
+            STATE_PREPARED, STATE_PAUSED -> {
+                startPlayer()
+            }
+        }
+    }
 
 
 
@@ -44,8 +106,14 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackGenre = findViewById(R.id.genre_parameter)
         trackCountry = findViewById(R.id.country_parameter)
         albumGroup = findViewById(R.id.album_group)
+        play = findViewById(R.id.play)
+        playingTime = findViewById(R.id.listened_by_the_time)
+        preparePlayer(track.previewUrl)
         backButtonPlayer.setOnClickListener {
             finish()
+        }
+        play.setOnClickListener {
+            playbackControl()
         }
 
         Glide.with(this)
@@ -55,8 +123,7 @@ class AudioPlayerActivity : AppCompatActivity() {
             .into(poster)
         trackName.text = track.trackName
         trackArtist.text = track.artistName
-        trackTime.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
+        trackTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime.toLong())
         if (track.collectionName.isNotEmpty()) {
             albumGroup.visibility = View.VISIBLE
             trackAlbum.text = track.collectionName
@@ -67,5 +134,14 @@ class AudioPlayerActivity : AppCompatActivity() {
         trackGenre.text = track.primaryGenreName
         trackCountry.text = track.country
 
+    }
+    override fun onPause() {
+        super.onPause()
+        pausePlayer()
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(timerRunnable)
+        mediaPlayer.release()
     }
 }

@@ -81,6 +81,13 @@
             app:tint="?attr/colorSecondaryVariant" />
 
     </FrameLayout>
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="140dp"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/background"
+        android:visibility="gone"/>
     <LinearLayout
         android:id="@+id/linear_layout_search_history"
         android:layout_width="match_parent"
