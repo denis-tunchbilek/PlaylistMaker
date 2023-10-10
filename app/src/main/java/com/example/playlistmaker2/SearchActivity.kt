@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -16,6 +18,7 @@ import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
@@ -41,6 +44,7 @@ class SearchActivity : AppCompatActivity(){
     private lateinit var searchHistoryRecyclerView: RecyclerView
     private lateinit var clearHistoryButton: Button
     private lateinit var erroeView: FrameLayout
+    private lateinit var progressBar: ProgressBar
 
 
 
@@ -54,35 +58,59 @@ class SearchActivity : AppCompatActivity(){
     private val songs = ArrayList<Song>()
     private val searchHistoryTracks = ArrayList<Song>()
 
-    private val adapter = SongAdapter { track ->
-        searchHistoryTracks.clear()
-        searchHistoryTracks.addAll(searchHistory.get())
-        if (searchHistoryTracks.contains(track)) {
-            searchHistoryTracks.remove(track)
-        } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
-            searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+
+    private var isClickAllowed = true
+
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { getSong(inputEditText.text.toString(), adapter) }
+
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
+    private fun clickDebounce() : Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
         }
-        searchHistoryTracks.add(0, track)
-        searchHistory.add(searchHistoryTracks)
-        val intent = Intent(this, AudioPlayerActivity::class.java)
-        intent.putExtra("track", Gson().toJson(track))
-        startActivity(intent)
+        return current
+    }
+
+    private val adapter = SongAdapter { track ->
+        if(clickDebounce()) {
+            searchHistoryTracks.clear()
+            searchHistoryTracks.addAll(searchHistory.get())
+            if (searchHistoryTracks.contains(track)) {
+                searchHistoryTracks.remove(track)
+            } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
+                searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+            }
+            searchHistoryTracks.add(0, track)
+            searchHistory.add(searchHistoryTracks)
+            val intent = Intent(this, AudioPlayerActivity::class.java)
+            intent.putExtra("track", Gson().toJson(track))
+            startActivity(intent)
+        }
 
 
     }
     private val historyAdapter = SongAdapter{ track ->
-        searchHistoryTracks.clear()
-        searchHistoryTracks.addAll(searchHistory.get())
-        if (searchHistoryTracks.contains(track)) {
-            searchHistoryTracks.remove(track)
-        } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
-            searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+        if(clickDebounce()) {
+            searchHistoryTracks.clear()
+            searchHistoryTracks.addAll(searchHistory.get())
+            if (searchHistoryTracks.contains(track)) {
+                searchHistoryTracks.remove(track)
+            } else if (searchHistoryTracks.size == MAX_SIZE_OF_SEARCH_HISTORY_TRACKS) {
+                searchHistoryTracks.removeAt(MAX_SIZE_OF_SEARCH_HISTORY_TRACKS - 1)
+            }
+            searchHistoryTracks.add(0, track)
+            searchHistory.add(searchHistoryTracks)
+            val intent = Intent(this, AudioPlayerActivity::class.java)
+            intent.putExtra("track", Gson().toJson(track))
+            startActivity(intent)
         }
-        searchHistoryTracks.add(0, track)
-        searchHistory.add(searchHistoryTracks)
-        val intent = Intent(this, AudioPlayerActivity::class.java)
-        intent.putExtra("track", Gson().toJson(track))
-        startActivity(intent)
 
 
     }
@@ -97,6 +125,8 @@ class SearchActivity : AppCompatActivity(){
         private const val iTunesBaseUrl = "https://itunes.apple.com/"
         private const val PLAYLIST_MAKER_PREFERENCES = "PLAYLIST_MAKER_PREFERENCES"
         private const val MAX_SIZE_OF_SEARCH_HISTORY_TRACKS = 10
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 
 
@@ -116,6 +146,7 @@ class SearchActivity : AppCompatActivity(){
 
         trackList = findViewById(R.id.trackList)
         trackList.adapter = adapter
+        progressBar = findViewById(R.id.progressBar)
         serchHistoryView = findViewById(R.id.linear_layout_search_history)
         erroeView = findViewById(R.id.errorView)
         clearHistoryButton = findViewById(R.id.button_clear_search_history)
@@ -147,6 +178,7 @@ class SearchActivity : AppCompatActivity(){
         inputEditText.doOnTextChanged { text, _, _, _ ->
             if (inputEditText.hasFocus() && text?.isEmpty() == true) {
                 showSearchHistory()
+                erroeView.visibility = View.GONE
             } else {
                 serchHistoryView.visibility = View.GONE
             }
@@ -199,6 +231,13 @@ class SearchActivity : AppCompatActivity(){
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 clearButton.visibility = clearButtonVisibility(s)
+                if (s?.isEmpty() == true) {
+                    songs.clear()
+                    adapter.notifyDataSetChanged()
+                    progressBar.visibility = View.GONE
+                    handler.removeCallbacks(searchRunnable)
+                }else
+                    searchDebounce()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -213,11 +252,16 @@ class SearchActivity : AppCompatActivity(){
 
 
     private fun getSong(text: String, adapter: SongAdapter){
+        erroeView.visibility = View.GONE
+        trackList.visibility = View.GONE
+        progressBar.visibility = View.VISIBLE
+
         iTunesService.search(text).enqueue(object : Callback<iTunesResponse>{
             override fun onResponse(
                 call: Call<iTunesResponse>,
                 response: Response<iTunesResponse>
             ) {
+                progressBar.visibility = View.GONE
                 if (response.code() == 200){
                     songs.clear()
                     if (response.body()?.results?.isNotEmpty() == true){
