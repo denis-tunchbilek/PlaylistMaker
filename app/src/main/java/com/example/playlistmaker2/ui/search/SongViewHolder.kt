@@ -1,4 +1,4 @@
-package com.example.playlistmaker2
+package com.example.playlistmaker2.ui.search
 
 import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
@@ -8,6 +8,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker2.R
+import com.example.playlistmaker2.data.dto.SongDto
+import com.example.playlistmaker2.domain.models.Song
 import java.util.Locale
 
 class SongViewHolder(parent: ViewGroup) :
@@ -20,7 +23,7 @@ class SongViewHolder(parent: ViewGroup) :
 
 
 
-    fun bind(item: Song) {
+    fun bind(item: SongDto) {
         songName.text = item.trackName
         artistName.text = item.artistName
         songTime.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(item.trackTime.toLong())

@@ -1,4 +1,4 @@
-package com.example.playlistmaker2
+package com.example.playlistmaker2.ui.audioPlayer
 
 import android.icu.text.SimpleDateFormat
 import android.media.MediaPlayer
@@ -7,13 +7,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.Group
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker2.R
+import com.example.playlistmaker2.domain.models.Song
 import com.google.gson.Gson
 import java.util.Locale
 

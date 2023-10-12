@@ -1,6 +1,8 @@
-package com.example.playlistmaker2
+package com.example.playlistmaker2.domain.models
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 data class Song(
     val trackName: String,
@@ -15,6 +17,7 @@ data class Song(
 ) {
 
         fun getCoverArtwork() = artworkUrl100.replaceAfterLast('/',"512x512bb.jpg")
+        fun getFormattedDuration() = SimpleDateFormat("mm:ss", Locale.getDefault()).format(trackTime.toInt())
 
         fun getYear() = releaseDate.substring(0,4)
 
