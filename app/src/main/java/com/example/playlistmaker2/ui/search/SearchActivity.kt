@@ -1,4 +1,4 @@
-package com.example.playlistmaker2
+package com.example.playlistmaker2.ui.search
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -23,6 +23,13 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker2.R
+import com.example.playlistmaker2.data.dto.SongDto
+import com.example.playlistmaker2.data.dto.SongsSearchResponse
+import com.example.playlistmaker2.data.sharedPreferences.SongHistoryPreference
+import com.example.playlistmaker2.data.network.iTunesApi
+import com.example.playlistmaker2.domain.models.Song
+import com.example.playlistmaker2.ui.audioPlayer.AudioPlayerActivity
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
@@ -55,8 +62,8 @@ class SearchActivity : AppCompatActivity(){
 
     private val iTunesService = retrofit.create(iTunesApi::class.java)
 
-    private val songs = ArrayList<Song>()
-    private val searchHistoryTracks = ArrayList<Song>()
+    private val songs = ArrayList<SongDto>()
+    private val searchHistoryTracks = ArrayList<SongDto>()
 
 
     private var isClickAllowed = true
@@ -256,10 +263,10 @@ class SearchActivity : AppCompatActivity(){
         trackList.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
 
-        iTunesService.search(text).enqueue(object : Callback<iTunesResponse>{
+        iTunesService.search(text).enqueue(object : Callback<SongsSearchResponse>{
             override fun onResponse(
-                call: Call<iTunesResponse>,
-                response: Response<iTunesResponse>
+                call: Call<SongsSearchResponse>,
+                response: Response<SongsSearchResponse>
             ) {
                 progressBar.visibility = View.GONE
                 if (response.code() == 200){
@@ -284,7 +291,7 @@ class SearchActivity : AppCompatActivity(){
                 }
             }
 
-            override fun onFailure(call: Call<iTunesResponse>, t: Throwable) {
+            override fun onFailure(call: Call<SongsSearchResponse>, t: Throwable) {
                 showPlaceHolderNoInternet()
                 placeHolderButton.setOnClickListener {
                     getSong(text, adapter)

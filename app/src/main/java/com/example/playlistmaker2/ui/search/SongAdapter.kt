@@ -1,10 +1,12 @@
-package com.example.playlistmaker2
+package com.example.playlistmaker2.ui.search
 
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker2.data.dto.SongDto
+import com.example.playlistmaker2.domain.models.Song
 
-class SongAdapter(private val onTrackClickListener: (track: Song) -> Unit) : RecyclerView.Adapter<SongViewHolder>() {
-    var songs = ArrayList<Song>()
+class SongAdapter(private val onTrackClickListener: (track: SongDto) -> Unit) : RecyclerView.Adapter<SongViewHolder>() {
+    var songs = ArrayList<SongDto>()
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         return SongViewHolder(parent)
     }

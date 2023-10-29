@@ -1,18 +1,14 @@
-package com.example.testapp
+package com.example.playlistmaker2.ui.settings
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Switch
-import androidx.appcompat.app.AppCompatDelegate.NightMode
-import androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode
-import com.example.playlistmaker2.APP_SETTINGS_PREF_KEY
-import com.example.playlistmaker2.App
-import com.example.playlistmaker2.DARK_THEME
+import com.example.playlistmaker2.presentation.APP_SETTINGS_PREF_KEY
+import com.example.playlistmaker2.presentation.App
+import com.example.playlistmaker2.presentation.DARK_THEME
 import com.example.playlistmaker2.R
 
 class SettingsActivity : AppCompatActivity() {
